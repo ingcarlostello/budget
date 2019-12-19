@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,
+      shrink-to-fit=no"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/css-webfonts/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <title>Budget App</title>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="section-income">
+                <div class="title-income">
+                  <h2>Monthly Incomes</h2>
+                </div>
+                <div class="incomes">
+                  <input
+                    type="text"
+                    placeholder="Income Description"
+                    id="descriptionIncome"
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="Income Value"
+                    id="incomeValue"
+                    onkeypress="return(event.charCode >= 48 && event.charCode <= 57)"
+                  />
+
+                  <button type="button" class="btn btn-success" id="addIncome">
+                    Add
+                  </button>
+                </div>
+                <div class="income-list">
+                  <ul class="list-group" id="listIncomes"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!----------------------------------------------------------- Summary section --------------------------------------------------------->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+          <div class = "progressBar-container">
+            <div class = "container" id = "containerProgressBar">
+              <div class="title-progressBar">
+                <h2 class="h2-title-percentage">% Spent Incomes.</h2>
+              </div>
+              <div class="progressBar-wrapper">
+                <div class="progressBar" id="progressBar">0%</div>
+              </div>
+            </div>            
+          </div>
+
+          <div class="col" id="summarySection">
+            <div class="title-Summary">
+              <h2 class="h2-title-income">Summary</h2>
+            </div>
+            <div class="total-income">
+              <span class="titleIncome">Total Monthly Incomes</span>
+              <span id="total-money" class="total">0</span>
+            </div>
+            <div class="total-expenses">
+              <span class="titleExpenses">Total Monthly Expenses</span>
+              <span id="total-expenses" class="total">0</span>
+            </div>
+            <div class="total-balance">
+              <span class="titleBalance">Total Balance</span>
+              <span id="total-balance" class="total">0</span>
+            </div>
+            </div>
+        </div>
+      </div>
+
+      <!----------------------------------------------------------- Expenses section --------------------------------------------------------->
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="section-Expense">
+                <div class="title-expense">
+                  <h2>Monthly Expenses</h2>
+                </div>
+                <div class="expenses">
+                  <input
+                    type="text"
+                    placeholder="Expense Description"
+                    id="expenseDescription"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Expense Value"
+                    id="expenseValue"
+                    onkeypress="return(event.charCode >= 48 && event.charCode <= 57)"
+                  />
+                  <button type="button" class="btn btn-danger" id="addExpense">
+                    Add
+                  </button>
+                </div>
+                <div class="expense-list">
+                  <ul class="list-group" id="expensesList"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div id = "canvasWrap" class = "canvasWrap" >
+            <canvas id="myChart" width="200" height="150"></canvas>
+          </div>          
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/budget.js"></script>
+  </body>
+</html>

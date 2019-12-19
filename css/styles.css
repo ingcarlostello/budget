@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300&display=swap');
+
+body{
+    background: #E0E0E0;
+}
+/* ******************************************************************************************************************************************
+                                                        CARD STYLES INCOMES
+ *******************************************************************************************************************************************/
+ 
+ 
+ /*************************** Inputs ***************************/
+ 
+ .incomes{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+ }
+
+
+
+
+
+
+/*************************** Titles ***************************/
+ .title-income{
+    text-align: center;
+    font-weight: 'Poppins', sans-serif;
+    font-weight: 100;
+}
+.title-expense{
+    text-align: center;
+    font-weight: 'Poppins', sans-serif;
+    font-weight: 100;
+}
+
+
+.h2-title-percentage{
+    font-size:4vw;
+    font-weight: 300;
+    text-align: center;
+    font-family:'Poppins', sans-serif;
+}
+
+.h2-title-income{
+    font-size:4vw;
+    font-weight: 300;
+    text-align: center;
+    font-family:'Poppins', sans-serif;
+}
+
+.titleIncome{
+    font-size:2vw;
+    font-weight: 200;
+    font-family:'Poppins', sans-serif;
+}
+
+.titleExpenses{
+    font-size:2vw;
+    font-weight: 200;
+    font-family:'Poppins', sans-serif;
+}
+
+.total{
+    font-size:2vw;
+    font-weight: 300;
+    font-family:'Poppins', sans-serif;
+}
+
+.titleBalance{
+    font-size:2vw;
+    font-weight: 200;
+    font-family:'Poppins', sans-serif;
+}
+
+
+
+.card{
+    margin-top:30px;
+    border-radius: 10px 10px 10px 10px;   
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.income-list{
+    margin-top:15px;
+}
+
+.expense-list{
+    margin-top:15px;
+}
+
+
+
+
+
+
+/*************************** Summary ***************************/
+#summarySection{
+    color: white;  
+    border-radius: 10px 10px 10px 10px;
+    margin-top:30px;
+    background-image: linear-gradient( 111.5deg, rgba(20,100,196,1) 0.4%, rgba(33,152,214,1) 100.2% );
+   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.total-income{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    font-size:2.5vw;
+}
+.total-expenses{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    font-size:2.5vw;
+}
+.total-balance{
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    font-size:2.5vw;
+}
+
+
+
+
+
+.contenedor{
+    border: 1px solid blue;
+    height: 50px;
+}
+    
+.progressBar{
+    /* background: yellow; */
+    height: 20px;
+    width: 0%;
+    color: #696969;
+    transition-timing-function: linear;
+    text-align: center;
+    border-radius: 10px 10px 10px 10px;
+    font-family: 'Poppins', sans-serif;
+    
+    background: #a8ff78;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #78ffd6, #a8ff78);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #78ffd6, #a8ff78); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.progressBar-wrapper{
+    margin-top: 30px;
+}
+
+
+
+
+
+.progressBar-container{
+    color: white;  
+    border-radius: 10px 10px 10px 10px;
+    margin-top:30px;
+    background-image: linear-gradient( 111.5deg, rgba(20,100,196,1) 0.4%, rgba(33,152,214,1) 100.2% );
+   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    padding-bottom: 20px;
+}
+
