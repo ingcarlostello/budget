@@ -170,7 +170,9 @@ function addExpense() {
   totalBalance();
   deleteExpense();
   moveProgressBar();
-  budgetChart();
+  removeDataFromExpensesChart(myChart);
+  addDataToExpensesChart(myChart, totalMonthExpenses)
+  
 }
 
 function deleteExpense() {
@@ -290,7 +292,7 @@ var myChart = new Chart(ctx, {
     datasets: [
       {
         label: "Budget",
-        data: [],
+        data: new Array(2),
         backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgba(54, 162, 235, 1)", "rgba(255,99,132,1)"],
         borderWidth: 1
@@ -312,7 +314,7 @@ var myChart = new Chart(ctx, {
 
 function addData(chart, data) {
   chart.data.datasets.forEach(dataset => {
-    dataset.data.push(data);    
+    dataset.data.unshift(data);    
     let valor = dataset.data[0];
     console.log(valor);
     if (dataset.data.indexOf(valor) !== -1) {
@@ -324,6 +326,29 @@ function addData(chart, data) {
 }
 
 function removeData(chart) {
+  chart.data.datasets.forEach(dataset => {
+    dataset.data.shift();
+  });
+  chart.update();
+}
+
+function addDataToExpensesChart(chart, data) {
+  chart.data.datasets.forEach(dataset => {
+    dataset.data.push(data);
+    console.log(dataset.data[1]);
+    let valor2 = dataset.data[1];
+    console.log(valor2);
+
+    if (dataset.data.indexOf(valor2) !== -1) {
+      console.log(`existe el valor ${valor2}`);
+      // dataset.data.pop();
+      // console.log(`valor ${valor} eliminado`)
+      console.log(dataset.data);
+    }
+  });
+  chart.update();
+}
+function removeDataFromExpensesChart(chart) {
   chart.data.datasets.forEach(dataset => {
     dataset.data.pop();
   });
