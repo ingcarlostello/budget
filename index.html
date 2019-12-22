@@ -7,8 +7,20 @@
       name="viewport"
       content="width=device-width, initial-scale=1,
       shrink-to-fit=no"
-    />
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300&display=swap" rel="stylesheet"> 
+      />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+      />
+    <script
+      src="https://kit.fontawesome.com/808e969dcf.js"
+      crossorigin="anonymous"></script>
+
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,200,300&display=swap"
+      rel="stylesheet"
+      />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/css-webfonts/all.min.css" />
@@ -17,118 +29,201 @@
   </head>
 
   <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <div class="columns">
+      <div class="column">
+        <div class="column">
+          <!--------------------------------------------------- INCOME CARD LIST------------------------------------------------------------------ -->
           <div class="card">
-            <div class="card-body">
+            <div class="card-content">
               <div class="section-income">
                 <div class="title-income">
-                  <h2>Monthly Incomes</h2>
+                  <h2 class="panel-heading title">Monthly Incomes</h2>
                 </div>
+
                 <div class="incomes">
-                  <input
-                    type="text"
-                    placeholder="Income Description"
-                    id="descriptionIncome"
-                  />
+                  <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                      <input
+                        class="input is-success"
+                        type="text"
+                        placeholder="Income Description"
+                        id="descriptionIncome"
+                        />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                      </span>
+                    </p>
+                  </div>
 
-                  <input
-                    type="text"
-                    placeholder="Income Value"
-                    id="incomeValue"
-                    onkeypress="return(event.charCode >= 48 && event.charCode <= 57)"
-                  />
+                  <div class="field">
+                    <p class="control has-icons-left">
+                      <input
+                        class="input is-success"
+                        type="text"
+                        placeholder="Income Value"
+                        id="incomeValue"
+                        onkeypress="return(event.charCode >= 48 &&
+                      event.charCode <=
+                        57)"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="far fa-money-bill-alt"></i>
+                        </span>
+                      </p>
+                    </div>                   
+                  </div>
 
-                  <button type="button" class="btn btn-success" id="addIncome">
-                    Add
-                  </button>
+                  <div class = "has-text-right">
+                    <button
+                      class="button is-success"
+                      id="addIncome">
+                      <span>Add</span>
+                      <span class="icon is-small">
+                        <i class="fas fa-arrow-down"></i>
+                      </span>
+                    </button>
+                  </div>
+
+                  <div class="income-list">
+                    <ul class="list-group" id="listIncomes"></ul>
+                  </div>
                 </div>
-                <div class="income-list">
-                  <ul class="list-group" id="listIncomes"></ul>
+              </div>
+            </div>
+
+            <!--------------------------------------------------- EXPENSES CARD LIST------------------------------------------------------------------ -->
+            <div class="card">
+              <div class="card-content">
+                <div class="section-Expense">
+                  <div class="title-expense">
+                    <h2 class="panel-heading title">Monthly Expenses</h2>
+                  </div>
+
+                  <div class="expenses">
+                    <div class="field">
+                      <p class="control has-icons-left">
+                        <input
+                          class="input is-danger"
+                          type="text"
+                          placeholder="Expense Description"
+                          id="expenseDescription"
+                          />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-file-invoice-dollar"></i>
+                        </span>
+                      </p>
+                    </div>
+
+                    <div class="field">
+                      <p class="control has-icons-left">
+                        <input
+                          class="input is-danger"
+                          type="text"
+                          placeholder="Expense Value"
+                          id="expenseValue"
+                          onkeypress="return(event.charCode >= 48 &&
+                        event.charCode
+                        <= 57)"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="far fa-money-bill-alt"></i>
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class = "has-text-right">
+                        <button
+                        class="button is-danger"
+                        id="addExpense">
+                        <span>Add</span>
+                        <span class="icon is-small">
+                          <i class="fas fa-arrow-down"></i>
+                        </span>
+                      </button>
+                      </div>
+                     
+                    </div>
+
+                    <div class="expense-list">
+                      <ul class="list-group" id="expensesList"></ul>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------------ % CARD------------------------------------------------------------------ -->
+          <div class="column">
+            <div class="column">
+              <div class="progressBar-container">
+                <div class="container" id="containerProgressBar">
+                  <div class="title-progressBar">
+                    <h2
+                      class="h2-title-percentage is-size-4-touch
+                      is-size-1-desktop">
+                      % Spent Incomes.
+                    </h2>
+                  </div>
+                  <div class="progressBar-wrapper">
+                    <div class="progressBar" id="progressBar">0%</div>
+                  </div>
+                </div>
+              </div>
+              <!------------------------------------------------------------ SUMMARY CARD------------------------------------------------------------------ -->
+              <div class="col" id="summarySection">
+                <div class="title-Summary">
+                  <h2 class="h2-title-income is-size-4-touch is-size-1-desktop">
+                    Summary
+                  </h2>
+                </div>
+                <div class="total-income">
+                  <span
+                    class="titleIncome is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">Total Monthly Incomes</span>
+                  <span
+                    id="total-money"
+                    class="total is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">0</span>
+                </div>
+                <div class="total-expenses">
+                  <span
+                    class="titleExpenses is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">Total Monthly Expenses</span>
+                  <span
+                    id="total-expenses"
+                    class="total is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">0</span>
+                </div>
+                <div class="total-balance">
+                  <span
+                    class="titleBalance is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">Total Balance</span>
+                  <span
+                    id="total-balance"
+                    class="total is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">0</span>
+                </div>
+              </div>
+              <!------------------------------------------------------------ CHART------------------------------------------------------------------ -->
+              <div id="canvasWrap" class="canvasWrap">
+                <canvas id="myChart" width="250" height="90"></canvas>
               </div>
             </div>
           </div>
         </div>
 
-        <!----------------------------------------------------------- Summary section --------------------------------------------------------->
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
 
-          <div class = "progressBar-container">
-            <div class = "container" id = "containerProgressBar">
-              <div class="title-progressBar">
-                <h2 class="h2-title-percentage">% Spent Incomes.</h2>
-              </div>
-              <div class="progressBar-wrapper">
-                <div class="progressBar" id="progressBar">0%</div>
-              </div>
-            </div>            
+        <div class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <!-- Any other Bulma elements you want -->
           </div>
-
-          <div class="col" id="summarySection">
-            <div class="title-Summary">
-              <h2 class="h2-title-income">Summary</h2>
-            </div>
-            <div class="total-income">
-              <span class="titleIncome">Total Monthly Incomes</span>
-              <span id="total-money" class="total">0</span>
-            </div>
-            <div class="total-expenses">
-              <span class="titleExpenses">Total Monthly Expenses</span>
-              <span id="total-expenses" class="total">0</span>
-            </div>
-            <div class="total-balance">
-              <span class="titleBalance">Total Balance</span>
-              <span id="total-balance" class="total">0</span>
-            </div>
-            </div>
+          <button class="modal-close is-large" aria-label="close"></button>
         </div>
-      </div>
 
-      <!----------------------------------------------------------- Expenses section --------------------------------------------------------->
-      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <div class="card">
-            <div class="card-body">
-              <div class="section-Expense">
-                <div class="title-expense">
-                  <h2>Monthly Expenses</h2>
-                </div>
-                <div class="expenses">
-                  <input
-                    type="text"
-                    placeholder="Expense Description"
-                    id="expenseDescription"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Expense Value"
-                    id="expenseValue"
-                    onkeypress="return(event.charCode >= 48 && event.charCode <= 57)"
-                  />
-                  <button type="button" class="btn btn-danger" id="addExpense">
-                    Add
-                  </button>
-                </div>
-                <div class="expense-list">
-                  <ul class="list-group" id="expensesList"></ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <div id = "canvasWrap" class = "canvasWrap" >
-            <canvas id="myChart" width="200" height="150"></canvas>
-          </div>          
-        </div>
-      </div>
-    </div>
-
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/budget.js"></script>
-  </body>
-</html>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/budget.js"></script>
+      </body>
+    </html>

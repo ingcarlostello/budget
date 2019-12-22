@@ -34,6 +34,8 @@ let arrayExpensesValue = [];
 let totalMonthExpenses;
 let totalMonthIncome;
 
+
+
 //**************************************************************************************************************************************** */
                                                     // INCOMES FUNCTIONS
 //****************************************************************************************************************************************
@@ -49,21 +51,18 @@ function addIncome() {
   } else if (txtIncomeValue.value === "") {
     alert("Income Value is empty");
   } else {
-    listItem.className =
-      "list-group-item d-flex justify-content-between align-items-center";
-    listItem.innerHTML = `${descriIncome} <span class="badge badge-primary badge-pill">$ ${numberWithDots(
-      IncomeValue
-    )}</span>  <a href="#" class="delete-income" ><i class="far fa-trash-alt"></i></a>`;
-
+    listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+    listItem.innerHTML = `${descriIncome} <span class="badge badge-primary badge-pill">$ ${numberWithDots(IncomeValue)}</span><a href="#" class="delete-income" ><i class="far fa-trash-alt"></i></a>`; 
     document.getElementById("listIncomes").appendChild(listItem);
     sumIncomes();
     txtDescripIncome.value = "";
     txtIncomeValue.value = "";
     txtDescripIncome.focus();
+    
+   
 
     for (let i = 0; i < spanList.length; i++) {
       spanList[i].setAttribute("data-id", i);
-      //console.log(spanList[i].dataset.id);
     }
 
     for (let j = 0; j < btnDelete.length; j++) {
@@ -89,8 +88,13 @@ function deleteIncome() {
     btnDelete[i].onclick = function() {
       deleting(event);
       list[i].remove();
+      localStorage.removeItem(`${descriIncome}`);
       totalBalance();
-      moveProgressBar();
+      removeData3(myChart);
+      addData(myChart, totalMonthIncome)
+      //addData3(myChart, totalMonthIncome);
+      moveProgressBar();      
+                        
     };
   }
 }
@@ -114,15 +118,16 @@ function deleting(event) {
       arrayValueIncomes.splice(btnId, 1);
       let sum = arrayValueIncomes.reduce((a, b) => a + b, 0); //=====> here it put the zero to provide an initialValue  as the neutral element of the operator see the link (https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors/Reduce_of_empty_array_with_no_initial_value)
       span.innerHTML = sum;
+      totalMonthIncome = sum;  
 
       for (let j = 0; j < btnDelete.length; j++) {
         if (btnDelete[j].dataset.btndeleteid > btnId) {
           btnDelete[j].setAttribute("data-btnDeleteId", j - 1);
         }
       }
-    }
-    break;
-  }
+    }   
+    break;    
+  }  
   console.log(arrayValueIncomes);
 }
 
@@ -132,6 +137,8 @@ function enterKey(e) {
     addIncome();
   }
 }
+
+
 
 //**************************************************************************************************************************************** */
                                                             // EXPENSES FUNCTIONS
@@ -171,8 +178,7 @@ function addExpense() {
   deleteExpense();
   moveProgressBar();
   removeDataFromExpensesChart(myChart);
-  addDataToExpensesChart(myChart, totalMonthExpenses)
-  
+  addDataToExpensesChart(myChart, totalMonthExpenses)  
 }
 
 function deleteExpense() {
@@ -190,7 +196,8 @@ function deleteExpense() {
       let elem = document.getElementById("progressBar");
       elem.style.width = 0 + "%";
       elem.innerHTML = 0 * 1 + "%";
-      //bugetChart();
+      removeDataFromExpensesChart(myChart);
+      addDataToExpensesChart(myChart, totalMonthExpenses)
     };
   }
 }
@@ -212,6 +219,7 @@ function deletingExpense(event) {
       arrayExpensesValue.splice(btnId, 1);
       let sum = arrayExpensesValue.reduce((a, b) => a + b, 0); //=====> here it put the zero to provide an initialValue  as the neutral element of the operator see the link (https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors/Reduce_of_empty_array_with_no_initial_value)
       spanExpenses.innerHTML = sum;
+      totalMonthExpenses = sum;
       for (let j = 0; j < btnDeleteExpense.length; j++) {
         if (btnDeleteExpense[j].dataset.btndeleteidexpense > btnId) {
           btnDeleteExpense[j].setAttribute("data-btnDeleteIdExpense", j - 1);
@@ -315,6 +323,7 @@ var myChart = new Chart(ctx, {
 function addData(chart, data) {
   chart.data.datasets.forEach(dataset => {
     dataset.data.unshift(data);    
+
     let valor = dataset.data[0];
     console.log(valor);
     if (dataset.data.indexOf(valor) !== -1) {
@@ -331,6 +340,10 @@ function removeData(chart) {
   });
   chart.update();
 }
+
+
+
+
 
 function addDataToExpensesChart(chart, data) {
   chart.data.datasets.forEach(dataset => {
@@ -354,6 +367,32 @@ function removeDataFromExpensesChart(chart) {
   });
   chart.update();
 }
+
+
+
+
+function addData3(chart, data) {
+  chart.data.datasets.forEach(dataset => {
+    dataset.data.unshift(data);    
+
+    let valor3 = dataset.data[0];
+    console.log(valor3);
+    if (dataset.data.indexOf(valor3) !== -1) {
+      console.log(`Exist the value ${valor3}`);
+      console.log(dataset.data);
+    }
+  });
+  chart.update();
+}
+
+function removeData3(chart) {
+  chart.data.datasets.forEach(dataset => {
+    dataset.data.shift();
+  });
+  chart.update();
+}
+
+
 
 
 
