@@ -25,6 +25,17 @@ const spanExpenses = document.getElementById("total-expenses");
 const btnDeleteExpense = document.getElementsByClassName(
   "far fa-trash-alt expense"
 );
+//*******************************************************************************************************************************/
+
+//**********************Modal Variables*********************************************************************************************
+// const btnCloseModal = document.getElementById("closeModal");
+// const modalBudget = document.getElementById("modalBudget");
+// const modalMessage = document.getElementById("modalMessage");
+
+const btnCloseModal = document.getElementById("closeModal");
+const modalBudget = document.getElementById("simpleModal");
+const modalMessage = document.getElementById("modalMessage");
+
 //**************************************************** ***************************************************************************/
 
 const spanBalance = document.getElementById("total-balance");
@@ -33,33 +44,40 @@ let arrayValueIncomes = [];
 let arrayExpensesValue = [];
 let totalMonthExpenses;
 let totalMonthIncome;
-
-
+let monthlyIncomes = [];
+let monthlyExpenses = [];
 
 //**************************************************************************************************************************************** */
-                                                    // INCOMES FUNCTIONS
+                                                          // INCOMES FUNCTIONS
 //****************************************************************************************************************************************
 
 //***************add income to list********************
 function addIncome() {
   let descriIncome = txtDescripIncome.value;
   let IncomeValue = txtIncomeValue.value;
+
   let listItem = document.createElement("li");
 
   if (txtDescripIncome.value === "") {
-    alert("Income Description is empty");
+    showModal("Income Description is empty");
   } else if (txtIncomeValue.value === "") {
-    alert("Income Value is empty");
+    showModal("Income Value is empty");
   } else {
-    listItem.className = "list-group-item d-flex justify-content-between align-items-center";
-    listItem.innerHTML = `${descriIncome} <span class="badge badge-primary badge-pill">$ ${numberWithDots(IncomeValue)}</span><a href="#" class="delete-income" ><i class="far fa-trash-alt"></i></a>`; 
+    listItem.className =
+      "list-group-item d-flex justify-content-between align-items-center";
+    listItem.innerHTML = `${firstCapitalLetter(
+      descriIncome
+    )} <span class="badge badge-primary badge-pill">$ ${numberWithDots(
+      IncomeValue
+    )}</span><a href="#" class="delete-income" ><i class="far fa-trash-alt"></i></a>`;
+
     document.getElementById("listIncomes").appendChild(listItem);
+    dataStorage();
     sumIncomes();
     txtDescripIncome.value = "";
     txtIncomeValue.value = "";
     txtDescripIncome.focus();
     
-   
 
     for (let i = 0; i < spanList.length; i++) {
       spanList[i].setAttribute("data-id", i);
@@ -69,11 +87,12 @@ function addIncome() {
       btnDelete[j].setAttribute("data-btnDeleteId", j);
     }
   }
+  
   totalBalance();
   deleteIncome();
   moveProgressBar();
   removeData(myChart);
-  addData(myChart, totalMonthIncome); 
+  addData(myChart, totalMonthIncome);
 }
 
 //***************Delete income from the list********************
@@ -88,13 +107,12 @@ function deleteIncome() {
     btnDelete[i].onclick = function() {
       deleting(event);
       list[i].remove();
-      localStorage.removeItem(`${descriIncome}`);
+
       totalBalance();
       removeData3(myChart);
-      addData(myChart, totalMonthIncome)
+      addData(myChart, totalMonthIncome);
       //addData3(myChart, totalMonthIncome);
-      moveProgressBar();      
-                        
+      moveProgressBar();
     };
   }
 }
@@ -111,23 +129,31 @@ function sumIncomes() {
 
 //***********Delete the incomes from array************************
 function deleting(event) {
+  //get incomes from local storage
+  let getIncomes;
+  getIncomes = JSON.parse( localStorage.getItem('incomes') );
+
   for (i = 0; i < btnDelete.length; i++) {
     let btnId = event.target.dataset.btndeleteid;
     if (btnId) {
       console.log(`es el boton ${btnId}`);
       arrayValueIncomes.splice(btnId, 1);
+      //delete income from local storage
+      getIncomes.splice(btnId, 1)
+      localStorage.setItem('incomes', JSON.stringify(getIncomes) );
+      console.table(getIncomes)
       let sum = arrayValueIncomes.reduce((a, b) => a + b, 0); //=====> here it put the zero to provide an initialValue  as the neutral element of the operator see the link (https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors/Reduce_of_empty_array_with_no_initial_value)
       span.innerHTML = sum;
-      totalMonthIncome = sum;  
-
+      totalMonthIncome = sum;
+      
       for (let j = 0; j < btnDelete.length; j++) {
         if (btnDelete[j].dataset.btndeleteid > btnId) {
           btnDelete[j].setAttribute("data-btnDeleteId", j - 1);
         }
       }
-    }   
-    break;    
-  }  
+    }
+    break;
+  }
   console.log(arrayValueIncomes);
 }
 
@@ -137,8 +163,6 @@ function enterKey(e) {
     addIncome();
   }
 }
-
-
 
 //**************************************************************************************************************************************** */
                                                             // EXPENSES FUNCTIONS
@@ -150,17 +174,22 @@ function addExpense() {
   let i;
 
   if (txtExpenseDescrip.value === "") {
-    alert("Expense Description is empty");
+    showModal("Expense Description is empty")
+    
   } else if (txtExpenseValue.value === "") {
-    alert("Expense Value is empty");
+    showModal("Expense Value is empty")
+   
   } else {
     listExpenses.className =
       "list-group-item expense d-flex justify-content-between align-items-center";
-    listExpenses.innerHTML = `${expenseDescription} <span class="badge badge-primary badge-pill expense">$ ${numberWithDots(
+    listExpenses.innerHTML = `${firstCapitalLetter(
+      expenseDescription
+    )} <span class="badge badge-primary badge-pill expense">$ ${numberWithDots(
       expenseValue
     )}</span>  <a href="#" class="delete-expense" ><i class="far fa-trash-alt expense"></i></a>`;
 
     document.getElementById("expensesList").appendChild(listExpenses);
+    addExpensesToLocalStorage()
     sumExpenses();
     txtExpenseDescrip.value = "";
     txtExpenseValue.value = "";
@@ -178,7 +207,7 @@ function addExpense() {
   deleteExpense();
   moveProgressBar();
   removeDataFromExpensesChart(myChart);
-  addDataToExpensesChart(myChart, totalMonthExpenses)  
+  addDataToExpensesChart(myChart, totalMonthExpenses);
 }
 
 function deleteExpense() {
@@ -197,7 +226,7 @@ function deleteExpense() {
       elem.style.width = 0 + "%";
       elem.innerHTML = 0 * 1 + "%";
       removeDataFromExpensesChart(myChart);
-      addDataToExpensesChart(myChart, totalMonthExpenses)
+      addDataToExpensesChart(myChart, totalMonthExpenses);
     };
   }
 }
@@ -212,11 +241,19 @@ function sumExpenses() {
 }
 
 function deletingExpense(event) {
+  //get expenses from local storage
+  let getExpenses;
+  getExpenses = JSON.parse( localStorage.getItem('expenses') );
+
   for (i = 0; i < btnDeleteExpense.length; i++) {
     let btnId = event.target.dataset.btndeleteidexpense;
     if (btnId) {
       console.log(`es el boton ${btnId}`);
       arrayExpensesValue.splice(btnId, 1);
+      //delete expense from local storage
+      getExpenses.splice(btnId, 1)
+      localStorage.setItem('expenses', JSON.stringify(getExpenses) );
+      console.table(getExpenses)
       let sum = arrayExpensesValue.reduce((a, b) => a + b, 0); //=====> here it put the zero to provide an initialValue  as the neutral element of the operator see the link (https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Errors/Reduce_of_empty_array_with_no_initial_value)
       spanExpenses.innerHTML = sum;
       totalMonthExpenses = sum;
@@ -239,7 +276,7 @@ function expenseEnterKey(e) {
 }
 
 //**************************************************************************************************************************************** */
-                                                                //OTHER FUNCTIONS
+                                                          //OTHER FUNCTIONS
 //****************************************************************************************************************************************
 
 //***********Show balance between (total income - total expenses)************************
@@ -258,7 +295,7 @@ function moveProgressBar() {
       clearInterval(id);
     } else if (thePercentage() > 100) {
       clearInterval(id);
-      alert("muchos gastos");
+      showModal("A lot of expenses; you might consider reducing expenses. 😬")
     } else {
       width++;
       elem.style.width = width + "%";
@@ -274,7 +311,8 @@ function thePercentage(percentage) {
     //console.log(percentage);
     if (percentage === Infinity || isNaN(percentage)) {
       percentage = 0;
-      throw "First add incomes";
+      //showModal("First add incomes")
+      //throw "First add incomes";
     }
   } catch (error) {
     alert(`Error ${error}`);
@@ -282,14 +320,8 @@ function thePercentage(percentage) {
   return percentage;
 }
 
-
-
-
-
-
-
 //**************************************************************************************************************************************** */
-                                                                  //CHART
+                                                                //CHART
 //****************************************************************************************************************************************
 
 var ctx = document.getElementById("myChart").getContext("2d");
@@ -322,7 +354,7 @@ var myChart = new Chart(ctx, {
 
 function addData(chart, data) {
   chart.data.datasets.forEach(dataset => {
-    dataset.data.unshift(data);    
+    dataset.data.unshift(data);
 
     let valor = dataset.data[0];
     console.log(valor);
@@ -333,18 +365,12 @@ function addData(chart, data) {
   });
   chart.update();
 }
-
 function removeData(chart) {
   chart.data.datasets.forEach(dataset => {
     dataset.data.shift();
   });
   chart.update();
 }
-
-
-
-
-
 function addDataToExpensesChart(chart, data) {
   chart.data.datasets.forEach(dataset => {
     dataset.data.push(data);
@@ -367,13 +393,9 @@ function removeDataFromExpensesChart(chart) {
   });
   chart.update();
 }
-
-
-
-
 function addData3(chart, data) {
   chart.data.datasets.forEach(dataset => {
-    dataset.data.unshift(data);    
+    dataset.data.unshift(data);
 
     let valor3 = dataset.data[0];
     console.log(valor3);
@@ -384,7 +406,6 @@ function addData3(chart, data) {
   });
   chart.update();
 }
-
 function removeData3(chart) {
   chart.data.datasets.forEach(dataset => {
     dataset.data.shift();
@@ -392,15 +413,156 @@ function removeData3(chart) {
   chart.update();
 }
 
+//**************************************************************************************************************************************** */
+                                                            //MODAL FUNCTIONS
+//****************************************************************************************************************************************
+function showModal(massage) {  
+  modalMessage.innerHTML = massage;
+  modalBudget.style.display = "block";
+}
+
+function closeModal() {
+  modalBudget.style.display = "none";
+}
+
+
+
+//**************************************************************************************************************************************** */
+                                                            //LOCAL STORAGE
+//****************************************************************************************************************************************
+
+//*************************Local storage functions Incomes************************************** */
+
+function dataStorage(){
+  const infoIncomes = {
+    descriIncome: txtDescripIncome.value,
+    IncomeValue: txtIncomeValue.value   
+  }
+
+  if(localStorage.getItem('incomes') === null) {
+    console.log("local storage empty you can add")
+    monthlyIncomes.push(infoIncomes);
+    console.table(monthlyIncomes)
+    localStorage.setItem("incomes", JSON.stringify(monthlyIncomes))  
+  }else{
+    let getIncomes;
+    getIncomes = JSON.parse( localStorage.getItem('incomes') )
+    getIncomes.push(infoIncomes)
+    localStorage.setItem("incomes", JSON.stringify(getIncomes))  
+  }  
+ }
+
+function getDataFromLocalStorage(){
+  let getIncomes;
+  
+  if(localStorage.getItem('incomes') === null) {
+    console.log("local storage empty")
+    getIncomes = [];
+  } else {
+    getIncomes = JSON.parse( localStorage.getItem('incomes') );
+  } 
+  arrayValueIncomes = [];
+  getIncomes.forEach(function (currentValue){  
+    let listItem = document.createElement("li");
+    listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+    listItem.innerHTML = `${firstCapitalLetter(currentValue.descriIncome)} <span class="badge badge-primary badge-pill">$ ${numberWithDots(currentValue.IncomeValue)}</span><a href="#" class="delete-income" ><i class="far fa-trash-alt"></i></a>`;
+    document.getElementById("listIncomes").appendChild(listItem);    
+    arrayValueIncomes.push(parseInt(currentValue.IncomeValue));
+    console.log(arrayValueIncomes)
+    let sum = arrayValueIncomes.reduce((a, b) => a + b);
+    span.innerHTML = sum;
+    totalMonthIncome = sum;
+    //return totalMonthIncome;
+  })
+  removeData(myChart);
+  addData(myChart, totalMonthIncome)
+  for (let i = 0; i < spanList.length; i++) {
+    spanList[i].setAttribute("data-id", i);
+  }
+  for (let j = 0; j < btnDelete.length; j++) {
+    btnDelete[j].setAttribute("data-btnDeleteId", j);
+  }
+  deleteIncome();
+}
+//********************************************************************************************** */
+
+
+
+//*************************Local storage functions Expenses************************************** */
+function addExpensesToLocalStorage(){
+  const infoExpenses = {
+    expenseDescription: txtExpenseDescrip.value,
+    expenseValue: txtExpenseValue.value  
+  }
+
+  if(localStorage.getItem('expenses') === null) {
+    console.log("local storage empty you can add")
+    monthlyExpenses.push(infoExpenses);
+    console.table(monthlyExpenses)
+    localStorage.setItem("expenses", JSON.stringify(monthlyExpenses))  
+  }else{
+    let getExpenses;
+    getExpenses = JSON.parse( localStorage.getItem('expenses') )
+    getExpenses.push(infoExpenses)
+    localStorage.setItem("expenses", JSON.stringify(getExpenses))  
+  }  
+ }
+
+ function getExpensesFromLocalStorage(){
+  let getExpenses;
+  
+  if(localStorage.getItem('expenses') === null) {
+    console.log("local storage empty")
+    getExpenses = [];
+  } else {
+    getExpenses = JSON.parse( localStorage.getItem('expenses') );
+  } 
+  arrayExpensesValue = []
+  getExpenses.forEach(function(currentValue){
+    let listExpenses = document.createElement("li");
+    listExpenses.className ="list-group-item expense d-flex justify-content-between align-items-center";
+    listExpenses.innerHTML = `${firstCapitalLetter(currentValue.expenseDescription)} <span class="badge badge-primary badge-pill expense">$ ${numberWithDots(currentValue.expenseValue)}</span>  <a href="#" class="delete-expense" ><i class="far fa-trash-alt expense"></i></a>`;
+    document.getElementById("expensesList").appendChild(listExpenses);
+    arrayExpensesValue.push(parseInt(currentValue.expenseValue))
+    let sum = arrayExpensesValue.reduce((a, b) => a + b);
+    spanExpenses.innerHTML = sum;
+    totalMonthExpenses = sum;
+  })
+  removeDataFromExpensesChart(myChart);
+  addDataToExpensesChart(myChart, totalMonthExpenses);
+  for (let y = 0; y < spanlistExpense.length; y++) {
+    spanlistExpense[y].setAttribute("data-expense", y);
+  }
+
+  for (let j = 0; j < btnDeleteExpense.length; j++) {
+    btnDeleteExpense[j].setAttribute("data-btnDeleteIdExpense", j);
+  }
+  deleteExpense();
+  totalBalance();
+  moveProgressBar();
+ }
+ //********************************************************************************************** */
+
+
 
 
 
 
 //**************************************************************************************************************************************** */
-                                                      //EVENT LISTENERS
+                                                            //EVENT LISTENERS
 //****************************************************************************************************************************************
 btnAdd.addEventListener("click", addIncome);
 txtIncomeValue.addEventListener("keyup", enterKey);
 
 btnAddExpense.addEventListener("click", addExpense);
 txtExpenseValue.addEventListener("keyup", expenseEnterKey);
+
+btnCloseModal.addEventListener("click", closeModal);
+
+//**********************Turn the first letter into uppercase.*************************
+function firstCapitalLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+document.addEventListener('DOMContentLoaded', getDataFromLocalStorage);
+document.addEventListener('DOMContentLoaded', getExpensesFromLocalStorage);

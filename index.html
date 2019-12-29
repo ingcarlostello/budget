@@ -1,229 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1,
-      shrink-to-fit=no"
-      />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
-      />
-    <script
-      src="https://kit.fontawesome.com/808e969dcf.js"
-      crossorigin="anonymous"></script>
 
-    <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:100,200,300&display=swap"
-      rel="stylesheet"
-      />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/css-webfonts/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <title>Budget App</title>
-  </head>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+  <script src="https://kit.fontawesome.com/808e969dcf.js" crossorigin="anonymous"></script>
 
-  <body>
-    <div class="columns">
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/css-webfonts/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <title>Budget App</title>
+</head>
+
+<body>
+  <div class="columns">
+    <div class="column">
       <div class="column">
-        <div class="column">
-          <!--------------------------------------------------- INCOME CARD LIST------------------------------------------------------------------ -->
-          <div class="card">
-            <div class="card-content">
-              <div class="section-income">
-                <div class="title-income">
-                  <h2 class="panel-heading title">Monthly Incomes</h2>
+        <!--------------------------------------------------- INCOME CARD LIST------------------------------------------------------------------ -->
+        <div class="card">
+          <div class="card-content">
+            <div class="section-income">
+              <div class="title-income">
+                <h2 class="panel-heading title">Monthly Incomes</h2>
+              </div>
+
+              <div class="incomes">
+                <div class="field">
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input is-success" type="text" placeholder="Income Description"
+                      id="descriptionIncome" />
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-file-invoice-dollar"></i>
+                    </span>
+                  </p>
                 </div>
 
-                <div class="incomes">
-                  <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                      <input
-                        class="input is-success"
-                        type="text"
-                        placeholder="Income Description"
-                        id="descriptionIncome"
-                        />
-                      <span class="icon is-small is-left">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                      </span>
-                    </p>
-                  </div>
-
-                  <div class="field">
-                    <p class="control has-icons-left">
-                      <input
-                        class="input is-success"
-                        type="text"
-                        placeholder="Income Value"
-                        id="incomeValue"
-                        onkeypress="return(event.charCode >= 48 &&
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input is-success" type="text" placeholder="Income Value" id="incomeValue" onkeypress="return(event.charCode >= 48 &&
                       event.charCode <=
-                        57)"
-                        />
-                        <span class="icon is-small is-left">
-                          <i class="far fa-money-bill-alt"></i>
-                        </span>
-                      </p>
-                    </div>                   
-                  </div>
-
-                  <div class = "has-text-right">
-                    <button
-                      class="button is-success"
-                      id="addIncome">
-                      <span>Add</span>
-                      <span class="icon is-small">
-                        <i class="fas fa-arrow-down"></i>
-                      </span>
-                    </button>
-                  </div>
-
-                  <div class="income-list">
-                    <ul class="list-group" id="listIncomes"></ul>
-                  </div>
+                        57)" />
+                    <span class="icon is-small is-left">
+                      <i class="far fa-money-bill-alt"></i>
+                    </span>
+                  </p>
                 </div>
               </div>
+
+              <div class="has-text-right">
+                <button class="button is-success" id="addIncome">
+                  <span>Add</span>
+                  <span class="icon is-small">
+                    <i class="fas fa-arrow-down"></i>
+                  </span>
+                </button>
+              </div>
+
+              <div class="income-list">
+                <ul class="list-group" id="listIncomes"></ul>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <!--------------------------------------------------- EXPENSES CARD LIST------------------------------------------------------------------ -->
-            <div class="card">
-              <div class="card-content">
-                <div class="section-Expense">
-                  <div class="title-expense">
-                    <h2 class="panel-heading title">Monthly Expenses</h2>
-                  </div>
+        <!--------------------------------------------------- EXPENSES CARD LIST------------------------------------------------------------------ -->
+        <div class="card">
+          <div class="card-content">
+            <div class="section-Expense">
+              <div class="title-expense">
+                <h2 class="panel-heading title">Monthly Expenses</h2>
+              </div>
 
-                  <div class="expenses">
-                    <div class="field">
-                      <p class="control has-icons-left">
-                        <input
-                          class="input is-danger"
-                          type="text"
-                          placeholder="Expense Description"
-                          id="expenseDescription"
-                          />
-                        <span class="icon is-small is-left">
-                          <i class="fas fa-file-invoice-dollar"></i>
-                        </span>
-                      </p>
-                    </div>
+              <div class="expenses">
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input is-danger" type="text" placeholder="Expense Description"
+                      id="expenseDescription" />
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-file-invoice-dollar"></i>
+                    </span>
+                  </p>
+                </div>
 
-                    <div class="field">
-                      <p class="control has-icons-left">
-                        <input
-                          class="input is-danger"
-                          type="text"
-                          placeholder="Expense Value"
-                          id="expenseValue"
-                          onkeypress="return(event.charCode >= 48 &&
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input is-danger" type="text" placeholder="Expense Value" id="expenseValue" onkeypress="return(event.charCode >= 48 &&
                         event.charCode
-                        <= 57)"
-                          />
-                          <span class="icon is-small is-left">
-                            <i class="far fa-money-bill-alt"></i>
-                          </span>
-                        </p>
-                      </div>
-
-                      <div class = "has-text-right">
-                        <button
-                        class="button is-danger"
-                        id="addExpense">
-                        <span>Add</span>
-                        <span class="icon is-small">
-                          <i class="fas fa-arrow-down"></i>
-                        </span>
-                      </button>
-                      </div>
-                     
-                    </div>
-
-                    <div class="expense-list">
-                      <ul class="list-group" id="expensesList"></ul>
-                    </div>
-                  </div>
+                        <= 57)" />
+                    <span class="icon is-small is-left">
+                      <i class="far fa-money-bill-alt"></i>
+                    </span>
+                  </p>
                 </div>
+
+                <div class="has-text-right">
+                  <button class="button is-danger" id="addExpense">
+                    <span>Add</span>
+                    <span class="icon is-small">
+                      <i class="fas fa-arrow-down"></i>
+                    </span>
+                  </button>
+                </div>
+
+              </div>
+
+              <div class="expense-list">
+                <ul class="list-group" id="expensesList"></ul>
               </div>
             </div>
           </div>
-          <!------------------------------------------------------------ % CARD------------------------------------------------------------------ -->
-          <div class="column">
-            <div class="column">
-              <div class="progressBar-container">
-                <div class="container" id="containerProgressBar">
-                  <div class="title-progressBar">
-                    <h2
-                      class="h2-title-percentage is-size-4-touch
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------ % CARD------------------------------------------------------------------ -->
+    <div class="column">
+      <div class="column">
+        <div class="progressBar-container">
+          <div class="container" id="containerProgressBar">
+            <div class="title-progressBar">
+              <h2 class="h2-title-percentage is-size-4-touch
                       is-size-1-desktop">
-                      % Spent Incomes.
-                    </h2>
-                  </div>
-                  <div class="progressBar-wrapper">
-                    <div class="progressBar" id="progressBar">0%</div>
-                  </div>
-                </div>
-              </div>
-              <!------------------------------------------------------------ SUMMARY CARD------------------------------------------------------------------ -->
-              <div class="col" id="summarySection">
-                <div class="title-Summary">
-                  <h2 class="h2-title-income is-size-4-touch is-size-1-desktop">
-                    Summary
-                  </h2>
-                </div>
-                <div class="total-income">
-                  <span
-                    class="titleIncome is-size-3-desktop is-size-6-tablet
-                    is-size-7-mobile">Total Monthly Incomes</span>
-                  <span
-                    id="total-money"
-                    class="total is-size-3-desktop is-size-6-tablet
-                    is-size-7-mobile">0</span>
-                </div>
-                <div class="total-expenses">
-                  <span
-                    class="titleExpenses is-size-3-desktop is-size-6-tablet
-                    is-size-7-mobile">Total Monthly Expenses</span>
-                  <span
-                    id="total-expenses"
-                    class="total is-size-3-desktop is-size-6-tablet
-                    is-size-7-mobile">0</span>
-                </div>
-                <div class="total-balance">
-                  <span
-                    class="titleBalance is-size-3-desktop is-size-6-tablet
-                    is-size-7-mobile">Total Balance</span>
-                  <span
-                    id="total-balance"
-                    class="total is-size-3-desktop is-size-6-tablet
-                    is-size-7-mobile">0</span>
-                </div>
-              </div>
-              <!------------------------------------------------------------ CHART------------------------------------------------------------------ -->
-              <div id="canvasWrap" class="canvasWrap">
-                <canvas id="myChart" width="250" height="90"></canvas>
-              </div>
+                % Spent Incomes.
+              </h2>
+            </div>
+            <div class="progressBar-wrapper">
+              <div class="progressBar" id="progressBar">0%</div>
             </div>
           </div>
         </div>
-
-
-        <div class="modal">
-          <div class="modal-background"></div>
-          <div class="modal-content">
-            <!-- Any other Bulma elements you want -->
+        <!------------------------------------------------------------ SUMMARY CARD------------------------------------------------------------------ -->
+        <div class="col" id="summarySection">
+          <div class="title-Summary">
+            <h2 class="h2-title-income is-size-4-touch is-size-1-desktop">
+              Summary
+            </h2>
           </div>
-          <button class="modal-close is-large" aria-label="close"></button>
+          <div class="total-income">
+            <span class="titleIncome is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">Total Monthly Incomes</span>
+            <span id="total-money" class="total is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">0</span>
+          </div>
+          <div class="total-expenses">
+            <span class="titleExpenses is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">Total Monthly Expenses</span>
+            <span id="total-expenses" class="total is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">0</span>
+          </div>
+          <div class="total-balance">
+            <span class="titleBalance is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">Total Balance</span>
+            <span id="total-balance" class="total is-size-3-desktop is-size-6-tablet
+                    is-size-7-mobile">0</span>
+          </div>
         </div>
+        <!------------------------------------------------------------ CHART------------------------------------------------------------------ -->
+        <div id="canvasWrap" class="canvasWrap">
+          <canvas id="myChart" width="250" height="90"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <script src="js/jquery-3.4.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/budget.js"></script>
-      </body>
-    </html>
+  <!-----------------------------------------------------------------------------------------------------------------------------------
+                                                                            /MODAL/
+          ------------------------------------------------------------------------------------------------------------------------------------>
+
+  <div id = "simpleModal" class = "modal">
+    <div class = "modal-content animated zoomIn faster">
+      <div class = "modal-header">
+        <div class = modal-header-icon>
+          <!-- <i class="fas fa-exclamation-triangle fa-2x">
+          </i> -->
+          <h3>⚠️</h3>          
+        </div>
+        <div class = modal-header-title>
+          <h3>Attention!</h3>
+        </div>       
+      </div>
+      <div class = "modal-body">
+        <h5 id="modalMessage"></h5>
+      </div>  
+      <div class = "modal-footer">        
+        <button class="button is-info" id="closeModal">
+          <span>Close</span>
+        </button>        
+      </div>    
+    </div>
+  </div>
+
+
+
+
+  
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/budget.js"></script>
+</body>
+
+</html>
